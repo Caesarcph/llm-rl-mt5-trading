@@ -1,0 +1,50 @@
+# EURUSD 品种配置
+
+symbol: "EURUSD"
+spread_limit: 2.0
+min_lot: 0.01
+max_lot: 10.0
+lot_step: 0.01
+risk_multiplier: 1.0
+
+# 启用的策略
+strategies:
+  - "ma_cross"
+  - "macd"
+  - "trend_follow"
+
+# 支持的时间周期
+timeframes:
+  - "M1"
+  - "M5"
+  - "M15"
+  - "H1"
+  - "H4"
+  - "D1"
+
+# 交易时间 (UTC)
+trading_hours:
+  monday: "00:00-23:59"
+  tuesday: "00:00-23:59"
+  wednesday: "00:00-23:59"
+  thursday: "00:00-23:59"
+  friday: "00:00-21:00"
+
+# 策略参数优化范围
+optimize_params:
+  ma_fast_period: [5, 50, 5]     # [最小值, 最大值, 步长]
+  ma_slow_period: [20, 200, 10]
+  macd_fast: [8, 16, 2]
+  macd_slow: [21, 35, 2]
+  macd_signal: [7, 15, 2]
+  rsi_period: [10, 30, 2]
+  rsi_overbought: [70, 85, 5]
+  rsi_oversold: [15, 30, 5]
+
+# 风险参数
+risk_params:
+  max_spread: 3.0
+  min_equity: 1000.0
+  max_slippage: 3
+  stop_loss_pips: 20
+  take_profit_pips: 40

@@ -1,0 +1,17 @@
+// EA31337策略配置文件
+// 生成时间: 2025-09-29 14:49:37
+// 参数数量: 13
+
+Lots=0.01
+MA_Method=1
+MA_Period_Fast=12
+MA_Period_Slow=26
+MaxRisk=1.5
+MaxSpread=3.0
+PriceStopLevel=2
+PriceStopMethod=1
+Signal_CloseMethod=1
+Signal_OpenMethod=1
+StopLoss=50
+TakeProfit=100
+TrailingStop=30

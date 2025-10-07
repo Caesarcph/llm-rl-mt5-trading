@@ -1,0 +1,55 @@
+# BTCUSD (比特币) 品种配置模板
+
+symbol: "BTCUSD"
+spread_limit: 50.0  # 加密货币点差较大
+min_lot: 0.01
+max_lot: 1.0  # 波动极大，限制最大手数
+lot_step: 0.01
+risk_multiplier: 0.5  # 极高波动，大幅降低风险
+
+# 启用的策略
+strategies:
+  - "momentum"
+  - "volatility_breakout"
+  - "support_resistance"
+
+# 支持的时间周期
+timeframes:
+  - "M15"
+  - "H1"
+  - "H4"
+  - "D1"
+
+# 交易时间 (UTC) - 24/7交易
+trading_hours:
+  monday: "00:00-23:59"
+  tuesday: "00:00-23:59"
+  wednesday: "00:00-23:59"
+  thursday: "00:00-23:59"
+  friday: "00:00-23:59"
+  saturday: "00:00-23:59"
+  sunday: "00:00-23:59"
+
+# 策略参数优化范围
+optimize_params:
+  momentum_period: [10, 30, 5]
+  bb_period: [20, 30, 5]
+  bb_deviation: [2.0, 3.0, 0.5]
+  rsi_period: [12, 18, 2]
+  atr_period: [14, 21, 7]
+  atr_multiplier: [2.0, 4.0, 0.5]
+
+# 风险参数
+risk_params:
+  max_spread: 100.0
+  min_equity: 5000.0  # 需要更高的最低资金
+  max_slippage: 20
+  stop_loss_pips: 500  # 比特币波动大，需要更大止损
+  take_profit_pips: 1000
+
+# 特殊注意事项
+notes:
+  - "加密货币波动极大，建议使用最小仓位"
+  - "注意周末流动性可能降低"
+  - "关注重大新闻和监管政策"
+  - "设置更宽的止损以避免被震出"

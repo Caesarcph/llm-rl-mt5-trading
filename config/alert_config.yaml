@@ -1,0 +1,90 @@
+# 告警系统配置
+
+# Telegram配置
+telegram:
+  bot_token: ""  # 从 @BotFather 获取
+  chat_id: ""    # 个人或群组的chat_id
+  enabled: false
+
+# 邮件配置
+email:
+  smtp_host: "smtp.gmail.com"
+  smtp_port: 587
+  username: ""
+  password: ""  # 应用专用密码
+  from_addr: ""
+  to_addrs: []
+  enabled: false
+
+# 告警系统设置
+alert_system:
+  max_history_size: 1000  # 最大历史记录数
+  
+  # 默认告警规则配置
+  rules:
+    low_balance:
+      enabled: true
+      min_balance: 1000
+      cooldown_minutes: 60
+    
+    daily_drawdown:
+      enabled: true
+      max_daily_drawdown: 0.05  # 5%
+      cooldown_minutes: 30
+    
+    consecutive_losses:
+      enabled: true
+      max_consecutive_losses: 3
+      cooldown_minutes: 120
+    
+    system_error:
+      enabled: true
+      max_error_count: 5
+      cooldown_minutes: 15
+    
+    mt5_connection:
+      enabled: true
+      cooldown_minutes: 5
+
+# 告警级别配置
+alert_levels:
+  info:
+    channels: ["log"]
+    enabled: true
+  
+  warning:
+    channels: ["telegram", "log"]
+    enabled: true
+  
+  critical:
+    channels: ["telegram", "email", "log"]
+    enabled: true
+
+# 自定义告警规则示例
+custom_rules:
+  # 大额交易告警
+  large_trade:
+    enabled: false
+    condition: "trade_volume > 1.0"
+    level: "warning"
+    message: "Large trade detected: {trade_volume} lots"
+    channels: ["telegram"]
+    cooldown_minutes: 10
+  
+  # 高波动率告警
+  high_volatility:
+    enabled: false
+    condition: "volatility > 0.02"
+    level: "info"
+    message: "High volatility detected: {volatility:.2%}"
+    channels: ["log"]
+    cooldown_minutes: 30
+  
+  # 盈利目标达成
+  profit_target:
+    enabled: false
+    condition: "daily_profit > 100"
+    level: "info"
+    message: "Daily profit target reached: ${daily_profit:.2f}"
+    channels: ["telegram"]
+    cooldown_minutes: 1440  # 24小时

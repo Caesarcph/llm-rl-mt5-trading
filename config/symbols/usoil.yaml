@@ -1,0 +1,59 @@
+# USOIL (原油) 品种配置
+
+symbol: "USOIL"
+spread_limit: 4.0
+min_lot: 0.01
+max_lot: 3.0
+lot_step: 0.01
+risk_multiplier: 0.7  # 原油波动极大，进一步降低风险
+
+# 启用的策略
+strategies:
+  - "news_trading"
+  - "inventory_trading"
+  - "momentum"
+
+# 支持的时间周期
+timeframes:
+  - "M15"
+  - "H1"
+  - "H4"
+  - "D1"
+
+# 交易时间 (UTC) - 重点关注美国交易时段
+trading_hours:
+  monday: "13:00-23:59"
+  tuesday: "00:00-23:59"
+  wednesday: "00:00-23:59"
+  thursday: "00:00-23:59"
+  friday: "00:00-20:00"
+
+# 策略参数优化范围
+optimize_params:
+  momentum_period: [10, 30, 5]
+  momentum_threshold: [0.5, 2.0, 0.5]
+  volume_ma_period: [20, 50, 10]
+  price_ma_period: [15, 35, 5]
+  volatility_period: [10, 25, 5]
+
+# 风险参数
+risk_params:
+  max_spread: 6.0
+  min_equity: 3000.0
+  max_slippage: 8
+  stop_loss_pips: 150
+  take_profit_pips: 300
+
+# EIA库存数据监控
+eia_monitoring:
+  enabled: true
+  release_time: "15:30"  # UTC 每周三
+  pre_release_stop: 30   # 发布前30分钟停止交易
+  post_release_wait: 15  # 发布后15分钟恢复交易
+
+# OPEC会议监控
+opec_monitoring:
+  enabled: true
+  meeting_dates: []      # 动态更新
+  pre_meeting_stop: 120  # 会议前2小时停止交易
+  post_meeting_wait: 60  # 会议后1小时恢复交易

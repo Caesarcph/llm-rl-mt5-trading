@@ -1,0 +1,55 @@
+# GBPUSD 品种配置模板
+
+symbol: "GBPUSD"
+spread_limit: 2.5
+min_lot: 0.01
+max_lot: 10.0
+lot_step: 0.01
+risk_multiplier: 1.0
+
+# 启用的策略
+strategies:
+  - "trend_follow"
+  - "breakout"
+  - "mean_reversion"
+
+# 支持的时间周期
+timeframes:
+  - "M5"
+  - "M15"
+  - "H1"
+  - "H4"
+  - "D1"
+
+# 交易时间 (UTC) - 重点关注伦敦和纽约时段
+trading_hours:
+  monday: "07:00-23:59"
+  tuesday: "00:00-23:59"
+  wednesday: "00:00-23:59"
+  thursday: "00:00-23:59"
+  friday: "00:00-21:00"
+
+# 策略参数优化范围
+optimize_params:
+  ma_fast_period: [5, 50, 5]
+  ma_slow_period: [20, 200, 10]
+  bb_period: [15, 25, 5]
+  bb_deviation: [1.5, 2.5, 0.5]
+  rsi_period: [10, 20, 2]
+  atr_period: [10, 20, 5]
+
+# 风险参数
+risk_params:
+  max_spread: 4.0
+  min_equity: 1000.0
+  max_slippage: 3
+  stop_loss_pips: 25
+  take_profit_pips: 50
+
+# 英国经济数据监控
+event_monitoring:
+  - "BOE利率决议"
+  - "英国GDP"
+  - "英国CPI"
+  - "英国就业数据"
+  - "英国零售销售"

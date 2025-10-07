@@ -1,0 +1,112 @@
+{
+  "events": [
+    {
+      "event_id": "nfp_2024_06",
+      "name": "Non-Farm Payrolls (NFP)",
+      "country": "US",
+      "event_type": "employment",
+      "impact": "critical",
+      "scheduled_time": "2024-06-07T12:30:00",
+      "forecast_value": 180000.0,
+      "previous_value": 175000.0,
+      "affected_symbols": ["EURUSD", "GBPUSD", "USDJPY", "XAUUSD"],
+      "description": "美国非农就业人数变化，是最重要的经济指标之一"
+    },
+    {
+      "event_id": "fomc_2024_06",
+      "name": "FOMC利率决议",
+      "country": "US",
+      "event_type": "central_bank",
+      "impact": "critical",
+      "scheduled_time": "2024-06-12T18:00:00",
+      "forecast_value": 5.25,
+      "previous_value": 5.25,
+      "affected_symbols": ["EURUSD", "GBPUSD", "USDJPY", "XAUUSD", "US30", "NAS100"],
+      "description": "美联储利率决议和政策声明"
+    },
+    {
+      "event_id": "cpi_2024_06",
+      "name": "消费者物价指数 (CPI)",
+      "country": "US",
+      "event_type": "inflation",
+      "impact": "high",
+      "scheduled_time": "2024-06-12T12:30:00",
+      "forecast_value": 3.4,
+      "previous_value": 3.5,
+      "affected_symbols": ["EURUSD", "XAUUSD", "US30"],
+      "description": "美国通胀指标，影响美联储政策预期"
+    },
+    {
+      "event_id": "gdp_2024_q1",
+      "name": "GDP增长率",
+      "country": "US",
+      "event_type": "gdp",
+      "impact": "high",
+      "scheduled_time": "2024-06-27T12:30:00",
+      "forecast_value": 2.0,
+      "previous_value": 1.6,
+      "affected_symbols": ["EURUSD", "USDJPY", "US30"],
+      "description": "美国第一季度GDP增长率"
+    },
+    {
+      "event_id": "ecb_rate_2024_06",
+      "name": "欧洲央行利率决议",
+      "country": "EU",
+      "event_type": "central_bank",
+      "impact": "critical",
+      "scheduled_time": "2024-06-06T12:15:00",
+      "forecast_value": 4.25,
+      "previous_value": 4.50,
+      "affected_symbols": ["EURUSD", "EURGBP", "EURJPY"],
+      "description": "欧洲央行利率决议"
+    },
+    {
+      "event_id": "boe_rate_2024_06",
+      "name": "英国央行利率决议",
+      "country": "UK",
+      "event_type": "central_bank",
+      "impact": "high",
+      "scheduled_time": "2024-06-20T11:00:00",
+      "forecast_value": 5.25,
+      "previous_value": 5.25,
+      "affected_symbols": ["GBPUSD", "EURGBP", "GBPJPY"],
+      "description": "英国央行利率决议"
+    },
+    {
+      "event_id": "eia_inventory_2024_06_05",
+      "name": "EIA原油库存",
+      "country": "US",
+      "event_type": "energy",
+      "impact": "high",
+      "scheduled_time": "2024-06-05T14:30:00",
+      "forecast_value": 1.5,
+      "previous_value": 2.0,
+      "affected_symbols": ["USOIL", "UKOIL"],
+      "description": "美国能源信息署原油库存周报"
+    },
+    {
+      "event_id": "retail_sales_2024_06",
+      "name": "零售销售",
+      "country": "US",
+      "event_type": "consumer",
+      "impact": "medium",
+      "scheduled_time": "2024-06-14T12:30:00",
+      "forecast_value": 0.3,
+      "previous_value": 0.0,
+      "affected_symbols": ["EURUSD", "US30"],
+      "description": "美国零售销售月率"
+    },
+    {
+      "event_id": "pmi_manufacturing_2024_06",
+      "name": "制造业PMI",
+      "country": "US",
+      "event_type": "manufacturing",
+      "impact": "medium",
+      "scheduled_time": "2024-06-03T13:45:00",
+      "forecast_value": 49.5,
+      "previous_value": 49.2,
+      "affected_symbols": ["EURUSD", "US30"],
+      "description": "美国制造业采购经理人指数"
+    }
+  ]
+}

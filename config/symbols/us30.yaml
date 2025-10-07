@@ -1,0 +1,54 @@
+# US30 (道琼斯指数) 品种配置
+
+symbol: "US30"
+spread_limit: 3.0
+min_lot: 0.01
+max_lot: 5.0
+lot_step: 0.01
+risk_multiplier: 0.9  # 股指波动较大，略微降低风险
+
+# 启用的策略
+strategies:
+  - "trend_follow"
+  - "momentum"
+  - "breakout"
+
+# 支持的时间周期
+timeframes:
+  - "M15"
+  - "H1"
+  - "H4"
+  - "D1"
+
+# 交易时间 (UTC) - 美股交易时段
+trading_hours:
+  monday: "13:30-20:00"
+  tuesday: "13:30-20:00"
+  wednesday: "13:30-20:00"
+  thursday: "13:30-20:00"
+  friday: "13:30-20:00"
+
+# 策略参数优化范围
+optimize_params:
+  trend_ma_period: [20, 50, 10]
+  momentum_period: [10, 30, 5]
+  rsi_period: [12, 18, 2]
+  atr_period: [14, 20, 2]
+  breakout_period: [15, 30, 5]
+
+# 风险参数
+risk_params:
+  max_spread: 5.0
+  min_equity: 2000.0
+  max_slippage: 5
+  stop_loss_pips: 80
+  take_profit_pips: 160
+
+# 特殊事件监控
+event_monitoring:
+  - "FOMC"
+  - "NFP"
+  - "CPI"
+  - "GDP"
+  - "财报季"
+  - "VIX波动率"

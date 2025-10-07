@@ -1,0 +1,174 @@
+# LLM-RL MT5交易系统配置模板
+# 复制此文件为 config.yaml 并根据您的需求修改
+
+# ============================================
+# MT5连接配置
+# ============================================
+mt5:
+  server: "YourBroker-Server"           # 您的经纪商服务器名称
+  login: 12345678                       # 您的MT5账户号码
+  password: "your_password"             # 您的MT5密码
+  path: "C:\\Program Files\\MetaTrader 5\\terminal64.exe"  # MT5安装路径 (Windows)
+  # path: "/home/user/.wine/drive_c/Program Files/MetaTrader 5/terminal64.exe"  # Linux
+  timeout: 60000                        # 连接超时时间(毫秒)
+  portable: false                       # 是否使用便携版
+
+# ============================================
+# 数据库配置
+# ============================================
+database:
+  sqlite_path: "data/trading.db"        # SQLite数据库路径
+  redis_host: "localhost"               # Redis主机地址
+  redis_port: 6379                      # Redis端口
+  redis_db: 0                           # Redis数据库编号
+  redis_password: null                  # Redis密码(如果有)
+
+# ============================================
+# 风险管理配置
+# ============================================
+risk:
+  # 基础风险参数
+  max_risk_per_trade: 0.02              # 单笔最大风险2%
+  max_daily_drawdown: 0.05              # 日最大回撤5%
+  max_weekly_drawdown: 0.10             # 周最大回撤10%
+  max_monthly_drawdown: 0.15            # 月最大回撤15%
+  
+  # 仓位控制
+  max_positions: 10                     # 最大持仓数
+  max_positions_per_symbol: 2           # 单品种最大持仓数
+  max_lot_per_symbol: 1.0               # 单品种最大手数
+  
+  # 相关性控制
+  correlation_threshold: 0.7            # 相关性阈值
+  max_correlated_positions: 3           # 最多相关仓位数
+  
+  # 止损止盈
+  stop_loss_pct: 0.02                   # 默认止损2%
+  take_profit_pct: 0.04                 # 默认止盈4%
+  use_trailing_stop: true               # 使用追踪止损
+  trailing_stop_distance: 0.01          # 追踪止损距离1%
+  
+  # 熔断机制
+  consecutive_loss_limit: 3             # 连续亏损限制
+  cooldown_period: 86400                # 冷却期(秒) 24小时
+  circuit_breaker_enabled: true         # 启用熔断
+  circuit_breaker_threshold: 0.10       # 熔断阈值10%
+
+# ============================================
+# LLM配置
+# ============================================
+llm:
+  enabled: false                        # 是否启用LLM (首次使用建议false)
+  model_path: "models/llama-3.2-1b"     # LLM模型路径
+  model_type: "llama"                   # 模型类型
+  max_tokens: 512                       # 最大token数
+  temperature: 0.7                      # 温度参数
+  use_gpu: true                         # 使用GPU加速
+  batch_size: 1                         # 批处理大小
+  context_length: 2048                  # 上下文长度
+  call_interval: 300                    # 调用间隔(秒) 5分钟
+  cache_results: true                   # 缓存结果
+
+# ============================================
+# 强化学习配置
+# ============================================
+rl:
+  enabled: false                        # 是否启用RL (首次使用建议false)
+  algorithm: "PPO"                      # 算法: PPO, SAC, A2C
+  learning_rate: 0.0003                 # 学习率
+  n_steps: 2048                         # 步数
+  batch_size: 64                        # 批次大小
+  n_epochs: 10                          # 训练轮数
+  gamma: 0.99                           # 折扣因子
+  gae_lambda: 0.95                      # GAE lambda
+  clip_range: 0.2                       # PPO裁剪范围
+  ent_coef: 0.0                         # 熵系数
+  vf_coef: 0.5                          # 价值函数系数
+  max_grad_norm: 0.5                    # 最大梯度范数
+
+# ============================================
+# 日志配置
+# ============================================
+logging:
+  level: "INFO"                         # 日志级别: DEBUG, INFO, WARNING, ERROR, CRITICAL
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file_path: "logs/trading.log"         # 日志文件路径
+  max_file_size: 10485760               # 最大文件大小(字节) 10MB
+  backup_count: 5                       # 备份文件数量
+  console_output: true                  # 控制台输出
+
+# ============================================
+# 交易配置
+# ============================================
+trading:
+  # 交易品种
+  symbols:
+    - "EURUSD"
+    # - "GBPUSD"
+    # - "XAUUSD"
+    # - "USOIL"
+  
+  # 时间周期
+  timeframes:
+    - "M5"
+    - "M15"
+    - "H1"
+    - "H4"
+    # - "D1"
+  
+  # 策略配置
+  strategies_enabled:
+    - "trend"                           # 趋势策略
+    # - "scalp"                         # 剥头皮策略
+    # - "breakout"                      # 突破策略
+  
+  # 基础参数
+  default_lot_size: 0.01                # 默认手数
+  slippage: 3                           # 允许滑点(点)
+  magic_number: 123456                  # EA魔术号
+  
+  # EA31337配置
+  ea31337_path: "ea31337"               # EA31337文件路径
+  
+  # 交易时间控制
+  allow_overnight: true                 # 允许隔夜持仓
+  close_before_weekend: true            # 周末前平仓
+  friday_close_time: "20:00"            # 周五平仓时间(UTC)
+  
+  # 新闻事件控制
+  avoid_high_impact_news: true          # 避开重大新闻
+  news_buffer_minutes: 30               # 新闻前后缓冲时间(分钟)
+
+# ============================================
+# 系统设置
+# ============================================
+debug_mode: false                       # 调试模式
+simulation_mode: true                   # 模拟模式 (首次使用建议true)
+auto_start: false                       # 自动启动
+update_interval: 1                      # 更新间隔(秒)
+
+# 资金管理
+capital_usage: 0.10                     # 资金使用比例 (10%用于测试)
+reserve_capital: 0.90                   # 储备资金比例
+
+# 性能优化
+enable_cache: true                      # 启用缓存
+cache_ttl: 300                          # 缓存生存时间(秒)
+parallel_processing: true               # 并行处理
+max_workers: 4                          # 最大工作线程数
+
+# 备份设置
+backup:
+  enabled: true                         # 启用自动备份
+  interval: "daily"                     # 备份间隔: daily, weekly
+  retention: 30                         # 保留天数
+  path: "backups/"                      # 备份路径
+
+# ============================================
+# 注意事项
+# ============================================
+# 1. 首次使用请设置 simulation_mode: true
+# 2. 建议从单一品种和策略开始
+# 3. 逐步增加资金使用比例
+# 4. 定期检查日志和性能
+# 5. 在实盘前充分测试

@@ -1,0 +1,79 @@
+# LLM-RL MT5 Trading System Configuration
+
+# 数据库配置
+database:
+  sqlite_path: "data/trading.db"
+  redis_host: "localhost"
+  redis_port: 6379
+  redis_db: 0
+  redis_password: null
+
+# MT5连接配置
+mt5:
+  server: ""
+  login: 0
+  password: ""
+  path: ""
+  timeout: 60000
+  portable: false
+
+# 风险管理配置
+risk:
+  max_risk_per_trade: 0.02      # 单笔最大风险2%
+  max_daily_drawdown: 0.05      # 日最大回撤5%
+  max_weekly_drawdown: 0.10     # 周最大回撤10%
+  max_monthly_drawdown: 0.15    # 月最大回撤15%
+  correlation_threshold: 0.7    # 相关性阈值
+  max_positions: 10             # 最大持仓数
+  max_lot_per_symbol: 1.0       # 单品种最大手数
+  stop_loss_pct: 0.02          # 默认止损百分比
+  take_profit_pct: 0.04        # 默认止盈百分比
+
+# LLM配置
+llm:
+  model_path: "models/llama-3.2-1b"
+  model_type: "llama"
+  max_tokens: 512
+  temperature: 0.7
+  use_gpu: true
+  batch_size: 1
+  context_length: 2048
+
+# 强化学习配置
+rl:
+  algorithm: "PPO"              # PPO, SAC, A2C
+  learning_rate: 0.0003
+  n_steps: 2048
+  batch_size: 64
+  n_epochs: 10
+  gamma: 0.99
+  gae_lambda: 0.95
+  clip_range: 0.2
+  ent_coef: 0.0
+  vf_coef: 0.5
+  max_grad_norm: 0.5
+
+# 日志配置
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file_path: "logs/trading.log"
+  max_file_size: 10485760       # 10MB
+  backup_count: 5
+  console_output: true
+
+# 交易配置
+trading:
+  symbols: ["EURUSD", "XAUUSD", "USOIL"]
+  timeframes: ["M1", "M5", "M15", "H1", "H4", "D1"]
+  default_lot_size: 0.01
+  slippage: 3
+  magic_number: 123456
+  ea31337_path: "ea31337"
+  strategies_enabled: ["trend", "scalp", "breakout"]
+
+# 系统设置
+debug_mode: false
+simulation_mode: true
+auto_start: false
+update_interval: 1              # 秒

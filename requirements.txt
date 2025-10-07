@@ -1,0 +1,54 @@
+# Core dependencies
+pandas>=1.5.0
+numpy>=1.21.0
+pyyaml>=6.0
+python-dateutil>=2.8.0
+
+# MT5 integration
+MetaTrader5>=5.0.45
+
+# Technical analysis
+TA-Lib>=0.4.25
+talib-binary>=0.4.19  # For Windows users
+
+# Machine Learning
+scikit-learn>=1.1.0
+stable-baselines3>=2.0.0
+gymnasium>=0.28.0
+optuna>=3.0.0
+
+# LLM integration
+transformers>=4.30.0
+torch>=2.0.0
+llama-cpp-python>=0.2.0
+langchain>=0.1.0
+
+# Data storage
+redis>=4.5.0
+sqlite3  # Built-in Python module
+
+# Async processing
+asyncio  # Built-in Python module
+aiohttp>=3.8.0
+aiofiles>=23.0.0
+
+# Utilities
+requests>=2.28.0
+beautifulsoup4>=4.11.0
+lxml>=4.9.0
+python-telegram-bot>=20.0
+psutil>=5.9.0
+
+# Testing
+pytest>=7.0.0
+pytest-asyncio>=0.21.0
+pytest-cov>=4.0.0
+
+# Development
+black>=23.0.0
+flake8>=6.0.0
+mypy>=1.0.0
+
+# Optional GPU support
+# torch-audio  # Uncomment if needed
+# torchaudio   # Uncomment if needed

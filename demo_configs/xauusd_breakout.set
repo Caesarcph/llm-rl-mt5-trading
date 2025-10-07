@@ -1,0 +1,14 @@
+// EA31337策略配置文件
+// 生成时间: 2025-09-29 14:49:38
+// 参数数量: 10
+
+ATR_Period=14
+BB_Deviation=2.0
+BB_Period=20
+Lots=0.01
+MaxRisk=2.5
+MaxSpread=10.0
+Signal_CloseMethod=3
+Signal_OpenMethod=3
+StopLoss=150
+TakeProfit=400

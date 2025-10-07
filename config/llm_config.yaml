@@ -1,0 +1,204 @@
+# LLM模块配置文件
+
+llm:
+  # 模型配置
+  model:
+    # 模型文件路径（支持1B和3B版本）
+    path: "models/llama-3.2-1b.gguf"
+    
+    # 上下文窗口大小（token数）
+    # 1024: 低内存环境
+    # 2048: 标准配置（推荐）
+    # 4096: 高性能环境
+    context_size: 2048
+    
+    # CPU线程数（根据CPU核心数调整）
+    threads: 4
+    
+    # GPU层数（0表示仅使用CPU）
+    # 如果有GPU，可以设置为20-40以加速推理
+    gpu_layers: 0
+    
+    # 生成温度（0-1）
+    # 0.5: 更确定的输出
+    # 0.7: 平衡（推荐）
+    # 0.9: 更有创造性
+    temperature: 0.7
+    
+    # 最大生成token数
+    max_tokens: 512
+    
+    # Top-p采样（0-1）
+    top_p: 0.9
+    
+    # Top-k采样
+    top_k: 40
+    
+    # 重复惩罚（1.0-1.5）
+    repeat_penalty: 1.1
+    
+    # 详细日志
+    verbose: false
+  
+  # 内存管理
+  memory:
+    # 最小可用内存阈值（MB）
+    # 低于此值时不加载模型
+    threshold_mb: 1024
+    
+    # 自动卸载模型的空闲时间（秒）
+    # 0表示不自动卸载
+    auto_unload_after: 300
+    
+    # 内存使用率警告阈值（%）
+    warning_threshold: 80
+  
+  # 调用策略
+  usage:
+    # 最小调用间隔（秒）
+    # 用于限制LLM调用频率
+    min_interval: 5.0
+    
+    # 结果缓存大小
+    cache_size: 100
+    
+    # 缓存过期时间（秒）
+    cache_ttl: 3600
+    
+    # 是否启用异步调用
+    async_enabled: true
+    
+    # 超时时间（秒）
+    timeout: 30
+  
+  # 应用场景配置
+  scenarios:
+    # 新闻情绪分析
+    news_sentiment:
+      temperature: 0.5
+      max_tokens: 200
+      enabled: true
+    
+    # 市场状态分析
+    market_analysis:
+      temperature: 0.6
+      max_tokens: 300
+      enabled: true
+    
+    # 交易决策支持
+    trading_advice:
+      temperature: 0.6
+      max_tokens: 250
+      enabled: true
+    
+    # 每日市场总结
+    daily_summary:
+      temperature: 0.7
+      max_tokens: 500
+      enabled: true
+    
+    # 异常行情分析
+    anomaly_analysis:
+      temperature: 0.5
+      max_tokens: 300
+      enabled: true
+
+# 提示词模板
+prompts:
+  # 新闻情绪分析模板
+  news_sentiment: |
+    Analyze the sentiment of this news headline:
+    "{headline}"
+    
+    Provide:
+    1. Sentiment: Bullish/Bearish/Neutral
+    2. Confidence: 0-100%
+    3. Impact on {symbol}: High/Medium/Low
+    4. Brief explanation (1-2 sentences)
+    
+    Keep response concise and structured.
+  
+  # 市场状态分析模板
+  market_analysis: |
+    Market Analysis Request:
+    
+    Symbol: {symbol}
+    Trend: {trend}
+    RSI: {rsi}
+    Volatility: {volatility}
+    Volume: {volume}
+    
+    Provide:
+    1. Market regime: Trending/Ranging/Volatile
+    2. Risk level: Low/Medium/High
+    3. Key observations (2-3 points)
+    4. Trading recommendation
+  
+  # 交易决策支持模板
+  trading_advice: |
+    Trading Signal Analysis:
+    
+    Symbol: {symbol}
+    Direction: {direction}
+    Strength: {strength}
+    Entry: {entry_price}
+    Stop Loss: {sl}
+    Take Profit: {tp}
+    
+    Technical Indicators:
+    {indicators}
+    
+    Should I take this trade?
+    Consider: Risk/Reward, Market conditions, Timing
+    
+    Provide clear recommendation with reasoning.
+  
+  # 每日市场总结模板
+  daily_summary: |
+    Daily Market Summary:
+    
+    Date: {date}
+    
+    Performance:
+    {performance_data}
+    
+    Key Events:
+    {events}
+    
+    Provide:
+    1. Overall market sentiment
+    2. Best performing assets
+    3. Key risks identified
+    4. Outlook for tomorrow
+  
+  # 异常行情分析模板
+  anomaly_analysis: |
+    Unusual Market Activity Detected:
+    
+    Symbol: {symbol}
+    Anomaly Type: {anomaly_type}
+    Magnitude: {magnitude}
+    Time: {timestamp}
+    
+    Context:
+    {context}
+    
+    Analyze:
+    1. Possible causes
+    2. Expected impact
+    3. Recommended actions
+    4. Risk assessment
+
+# 日志配置
+logging:
+  # 日志级别
+  level: INFO
+  
+  # 日志文件
+  file: "logs/llm.log"
+  
+  # 是否记录生成的文本
+  log_generated_text: true
+  
+  # 是否记录提示词
+  log_prompts: false
