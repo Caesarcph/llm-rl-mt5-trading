@@ -56,3 +56,8 @@ data/*.csv
 # Backup files
 *_backup_*
 test_before_restore_*.db
+
+# Task and summary files
+TASK_*.md
+*_SUMMARY.md
+.kiro/
