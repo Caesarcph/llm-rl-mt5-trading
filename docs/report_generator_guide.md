@@ -453,9 +453,8 @@ risk_manager = RiskManagerAgent(config)
 
 ## 相关文档
 
-- [性能跟踪器指南](performance_tracker_guide.md)
-- [风险管理器指南](risk_manager_guide.md)
-- [交易系统架构](architecture.md)
+- [交易系统架构](architecture_guide.md)
+- [API参考](api_reference.md)
 
 ## 更新日志
 

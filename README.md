@@ -1,5 +1,7 @@
 # LLM-RL MT5 Trading System
 
+[![CI](https://github.com/Caesarcph/llm-rl-mt5-trading/actions/workflows/ci.yml/badge.svg)](https://github.com/Caesarcph/llm-rl-mt5-trading/actions/workflows/ci.yml)
+
 [中文](#中文) | [English](#english)
 
 ---
@@ -144,7 +146,7 @@ rl:
 pytest
 
 # 运行特定测试
-pytest tests/test_strategies.py
+pytest tests/test_base_strategies.py
 
 # 生成覆盖率报告
 pytest --cov=src tests/
@@ -180,7 +182,7 @@ pytest --cov=src tests/
 
 ### 许可证
 
-MIT License - 详见 [LICENSE](LICENSE) 文件
+尚未指定许可证。
 
 ### 贡献
 
@@ -334,7 +336,7 @@ rl:
 pytest
 
 # Run specific tests
-pytest tests/test_strategies.py
+pytest tests/test_base_strategies.py
 
 # Generate coverage report
 pytest --cov=src tests/
@@ -370,7 +372,7 @@ The system provides multiple monitoring methods:
 
 ### License
 
-MIT License - See [LICENSE](LICENSE) file for details
+No license has been specified yet.
 
 ### Contributing
 
