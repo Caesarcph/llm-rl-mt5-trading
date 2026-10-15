@@ -429,9 +429,8 @@ class CustomEventMonitor:
 
 ## 参考资料
 
-- [Requirements 3.1-3.4](../requirements.md#requirement-3): 多品种交易配置
-- [Requirements 5.3](../requirements.md#requirement-5): 经济事件监控
-- [Design Document](../design.md): 系统架构设计
+- [系统架构指南](architecture_guide.md): 系统架构设计
+- [品种配置快速参考](symbol_config_quick_reference.md)
 
 ## 更新日志
 

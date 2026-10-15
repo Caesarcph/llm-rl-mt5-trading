@@ -464,6 +464,5 @@ class TradingSystem:
 
 ## 参考资料
 
-- [数据库管理器文档](database_guide.md)
-- [订单执行器文档](order_executor_guide.md)
-- [仓位管理器文档](position_manager_guide.md)
+- [API参考](api_reference.md)
+- [系统架构指南](architecture_guide.md)
