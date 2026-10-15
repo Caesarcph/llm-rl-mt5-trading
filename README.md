@@ -1,5 +1,7 @@
 # LLM-RL MT5 Trading System
 
+[![CI](https://github.com/Caesarcph/llm-rl-mt5-trading/actions/workflows/ci.yml/badge.svg)](https://github.com/Caesarcph/llm-rl-mt5-trading/actions/workflows/ci.yml)
+
 [中文](#中文) | [English](#english)
 
 ---
