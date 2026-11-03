@@ -34,7 +34,7 @@ class TestStrategyManager(unittest.TestCase):
     
     def _create_test_market_data(self) -> MarketData:
         """创建测试市场数据"""
-        dates = pd.date_range(end=datetime.now(), periods=100, freq='1H')
+        dates = pd.date_range(end=datetime.now(), periods=100, freq='1h')
         
         # 生成模拟价格数据
         np.random.seed(42)

@@ -18,7 +18,7 @@ class TestTradingEnvironment(unittest.TestCase):
     def setUp(self):
         """设置测试环境"""
         # 创建模拟数据
-        dates = pd.date_range(start='2024-01-01', periods=1000, freq='1H')
+        dates = pd.date_range(start='2024-01-01', periods=1000, freq='1h')
         np.random.seed(42)
         
         # 生成价格数据

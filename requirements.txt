@@ -5,11 +5,10 @@ pyyaml>=6.0
 python-dateutil>=2.8.0
 
 # MT5 integration
-MetaTrader5>=5.0.45
+MetaTrader5>=5.0.45; sys_platform == "win32"  # Windows-only wheels
 
 # Technical analysis
-TA-Lib>=0.4.25
-talib-binary>=0.4.19  # For Windows users
+TA-Lib>=0.6.5  # 0.6.5+ ships prebuilt wheels for Windows/macOS/Linux; talib-binary is abandoned
 
 # Machine Learning
 scikit-learn>=1.1.0
@@ -17,18 +16,15 @@ stable-baselines3>=2.0.0
 gymnasium>=0.28.0
 optuna>=3.0.0
 
-# LLM integration
-transformers>=4.30.0
+# LLM integration (torch is also required by stable-baselines3)
 torch>=2.0.0
 llama-cpp-python>=0.2.0
-langchain>=0.1.0
 
 # Data storage
 redis>=4.5.0
-sqlite3  # Built-in Python module
+# sqlite3 is part of the standard library
 
-# Async processing
-asyncio  # Built-in Python module
+# Async processing (asyncio is part of the standard library)
 aiohttp>=3.8.0
 aiofiles>=23.0.0
 

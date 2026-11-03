@@ -28,7 +28,7 @@ class TestSlippagePredictor(unittest.TestCase):
     
     def _create_mock_market_data(self) -> MarketData:
         """创建模拟市场数据"""
-        dates = pd.date_range(start='2024-01-01', periods=100, freq='1H')
+        dates = pd.date_range(start='2024-01-01', periods=100, freq='1h')
         ohlcv = pd.DataFrame({
             'open': np.random.uniform(1.1000, 1.1100, 100),
             'high': np.random.uniform(1.1050, 1.1150, 100),
@@ -92,7 +92,7 @@ class TestLiquidityAnalyzer(unittest.TestCase):
     
     def _create_mock_market_data(self) -> MarketData:
         """创建模拟市场数据"""
-        dates = pd.date_range(start='2024-01-01', periods=100, freq='1H')
+        dates = pd.date_range(start='2024-01-01', periods=100, freq='1h')
         ohlcv = pd.DataFrame({
             'open': np.random.uniform(1.1000, 1.1100, 100),
             'high': np.random.uniform(1.1050, 1.1150, 100),
@@ -157,7 +157,7 @@ class TestTimingOptimizer(unittest.TestCase):
     
     def _create_mock_market_data(self) -> MarketData:
         """创建模拟市场数据"""
-        dates = pd.date_range(start='2024-01-01', periods=100, freq='1H')
+        dates = pd.date_range(start='2024-01-01', periods=100, freq='1h')
         ohlcv = pd.DataFrame({
             'open': np.random.uniform(1.1000, 1.1100, 100),
             'high': np.random.uniform(1.1050, 1.1150, 100),
@@ -284,7 +284,7 @@ class TestExecutionOptimizerAgent(unittest.TestCase):
     
     def _create_mock_market_data(self) -> MarketData:
         """创建模拟市场数据"""
-        dates = pd.date_range(start='2024-01-01', periods=100, freq='1H')
+        dates = pd.date_range(start='2024-01-01', periods=100, freq='1h')
         ohlcv = pd.DataFrame({
             'open': np.random.uniform(1.1000, 1.1100, 100),
             'high': np.random.uniform(1.1050, 1.1150, 100),

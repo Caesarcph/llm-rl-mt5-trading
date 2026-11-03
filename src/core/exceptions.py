@@ -3,6 +3,7 @@
 定义系统中使用的所有自定义异常类
 """
 
+import functools
 from typing import Optional, Dict, Any
 
 
@@ -289,13 +290,16 @@ def handle_exceptions(exception_types: tuple = (Exception,),
                      reraise: bool = False):
     """异常处理装饰器"""
     def decorator(func):
+        @functools.wraps(func)
         def wrapper(*args, **kwargs):
             try:
                 return func(*args, **kwargs)
             except exception_types as e:
                 if log_error:
-                    from .logging import log_error
-                    log_error(f"函数 {func.__name__} 执行异常", e)
+                    # 注意别名：直接 `from .logging import log_error` 会让 log_error 变成
+                    # wrapper 的局部变量，上一行的 `if log_error:` 就会抛 UnboundLocalError。
+                    from .logging import log_error as _log_error
+                    _log_error(f"函数 {func.__name__} 执行异常", e)
                 
                 if reraise:
                     raise

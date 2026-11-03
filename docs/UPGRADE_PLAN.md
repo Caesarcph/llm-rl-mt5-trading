@@ -32,15 +32,35 @@
 
 就算要归档，迁移期间也得让代码能 import、能跑测试，否则没法验证迁移前后行为一致。
 
-| ID | 问题 | 位置 | 修法 |
-|---|---|---|---|
-| P0-04 | 三个文件内容损坏（字符顺序被打乱） | `src/core/monitoring.py`（第 60 行以后）、`tests/test_alert_system.py`、`examples/backtest_monte_carlo_integration.py` | 先找本地有没有好的副本；没有就把 `monitoring.py` 重写成最小可用版，另外两个直接删掉 |
-| P0-05 | 依赖装不上 | `requirements.txt` | 删掉 `sqlite3`、`asyncio`（标准库；PyPI 上的 `asyncio` 是个"请勿安装"的占位包）和 `talib-binary`（2019 年后没更新，只有 cp34–cp37 的 wheel）。TA-Lib 官方包的新版本已经自带各平台 wheel，直接换成 `TA-Lib` 即可。另外 `langchain>=0.1` 现在会解析到 LangChain 1.x，接口不兼容，代码里没用到就直接删掉 |
-| P0-06 | 异常处理装饰器自己会崩 | `src/core/exceptions.py:296` | `wrapper` 里的 `from .logging import log_error` 遮住了同名参数，捕获异常时先抛 `UnboundLocalError`。把 import 挪到模块顶部并改名 |
-| P0-07 | 声称 MIT 但没有 LICENSE | 仓库根目录 | 补上 LICENSE 文件 |
-| — | 测试里引用了未定义的名字 | `tests/test_ea31337_bridge.py:466`（`logging`）、`tests/test_risk_manager_agent.py`（`PortfolioRisk`） | 补 import |
+| ID | 问题 | 位置 | 修法 | 状态 |
+|---|---|---|---|---|
+| P0-04 | 三个文件内容损坏（字符顺序被打乱） | `src/core/monitoring.py`（第 60 行以后）、`tests/test_alert_system.py`、`examples/backtest_monte_carlo_integration.py` | git 历史里没有完好的版本（初始提交就已损坏）。`monitoring.py` 按 `TradingSystem` 的实际用法重写并补测试；`test_alert_system.py` 按 `alert_system.py` 的真实接口重写；示例无法恢复，删除 | ✅ 2026-11-03 |
+| P0-05 | 依赖装不上 | `requirements.txt` | 删掉 `sqlite3`、`asyncio`（标准库）、`talib-binary`（只有 cp34–cp37 的 wheel）；改用 `TA-Lib>=0.6.5`（**0.6.5 起**才带各平台 wheel，之前的版本仍要自己编译 C 库）；删掉代码里根本没用到的 `langchain`、`transformers`；`MetaTrader5` 加上 `sys_platform == "win32"` 标记，Linux / macOS 上也能装 | ✅ 2026-11-03 |
+| P0-06 | 异常处理装饰器自己会崩 | `src/core/exceptions.py:296` | 局部 import 改用别名，顺手加上 `functools.wraps`；新增回归测试（修复前能复现 `UnboundLocalError`） | ✅ 2026-11-03 |
+| P0-07 | 声称 MIT 但没有 LICENSE | 仓库根目录 | 补上 LICENSE 文件 | ✅ 2026-11-03 |
+| — | 测试缺 `import logging` | `tests/test_ea31337_bridge.py:466` | 补 import | ✅ 2026-11-03 |
+| — | pandas 3 不再接受 `"H"` 频率写法 | 4 个测试文件里的 `pd.date_range(freq="H")` | 改成小写 `"h"`。`pandas>=1.5.0` 这种宽松约束现在会装上 pandas 3，这一处就让 54 个测试挂掉 | ✅ 2026-11-03 |
 
-修完的验收标准：`python -c "import src.core.trading_system"` 不报错；装好 TA-Lib 和 gymnasium 后，测试能全部收集到。
+修完的验收标准：`python -c "import src.core.trading_system"` 不报错 ✅；装好 TA-Lib 和 gymnasium 后，测试能全部收集到 ✅。
+
+### 修复前后的测试结果
+
+同一个环境（Linux、Python 3.13、MetaTrader5 用桩模块、装了 TA-Lib 和 gymnasium、**没装** stable-baselines3）：
+
+| | 通过 | 失败 | 收集错误 |
+|---|---|---|---|
+| 修复前 | 496 | 81 | 5 |
+| 修复后 | 600 | 15 | 3 |
+
+剩下的 18 个都是原有问题，不打算在这个仓库里修（相关模块会在迁移时重写或删除）：
+
+| 测试 | 数量 | 原因 | 迁移时怎么处理 |
+|---|---|---|---|
+| `test_risk_manager_agent.py` | 8 | 测试针对的功能**从来没实现过**：`PortfolioRisk`、`monitor_portfolio_risk()`、`update_trailing_stops()`、`_activate_circuit_breaker()`；另有 2 个是交易校验逻辑和测试预期对不上 | 迁到 `maq-risk` 时按测试意图补齐实现 |
+| `test_trading_system.py` | 4 | 测试用了 Python 3.11 已删除的 `asyncio.coroutine`；更根本的是 `TradingSystem` 读取的十几个配置段（`alert`、`ea`、`fund_management`、`risk_control`、`strategies`、`system`、`trading_hours` 等）在 `SystemConfig` 里**根本没有定义**，所以 `main.py` 即使 import 成功，也过不了 `initialize()` | `TradingSystem` 由 `maq-engine` 取代，不再修 |
+| `test_performance.py` | 2 | 断言 CPU 占用 > 0，在空闲的沙箱里读数就是 0，属于环境敏感的写法 | 删除 |
+| `test_indicators.py` | 1 | `MarketData` 构造时就拒绝空数据（抛 `ValueError`），测试却期待指标计算时抛 `DataValidationError`——"数据校验归哪一层"需要定一下 | 迁到 `maq-data` 时统一校验层 |
+| RL 训练相关 3 个文件 | 3 | 测试环境没装 stable-baselines3（环境原因，不代表代码有问题） | — |
 
 ---
 
