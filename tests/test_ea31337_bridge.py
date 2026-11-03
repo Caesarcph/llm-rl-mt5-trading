@@ -5,6 +5,7 @@ EA31337桥接器集成测试
 
 import unittest
 import json
+import logging
 import tempfile
 import shutil
 from datetime import datetime, timedelta

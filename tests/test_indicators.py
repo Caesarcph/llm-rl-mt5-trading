@@ -93,7 +93,7 @@ class TestTechnicalIndicators(unittest.TestCase):
         self.indicators = TechnicalIndicators(use_cache=False)
         
         # 创建测试数据
-        dates = pd.date_range(start='2023-01-01', periods=100, freq='H')
+        dates = pd.date_range(start='2023-01-01', periods=100, freq='h')
         np.random.seed(42)  # 确保可重复性
         
         # 生成模拟价格数据
@@ -385,7 +385,7 @@ class TestCustomIndicators(unittest.TestCase):
         self.custom_indicators = CustomIndicators()
         
         # 创建测试数据
-        dates = pd.date_range(start='2023-01-01', periods=50, freq='H')
+        dates = pd.date_range(start='2023-01-01', periods=50, freq='h')
         np.random.seed(42)
         
         # 生成更复杂的价格数据
@@ -508,7 +508,7 @@ class TestMultiTimeframeAnalyzer(unittest.TestCase):
         self.market_data_dict = {}
         
         for timeframe in ["M15", "H1", "H4"]:
-            dates = pd.date_range(start='2023-01-01', periods=100, freq='H')
+            dates = pd.date_range(start='2023-01-01', periods=100, freq='h')
             np.random.seed(42)
             
             base_price = 1.1000

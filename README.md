@@ -2,6 +2,8 @@
 
 [中文](#中文) | [English](#english)
 
+> 🚧 **2026 升级计划 / Upgrade plan**：本仓库的有效模块将迁移到 multi-agent-quant 和 llm-backtest-framework，之后归档。详见 [docs/UPGRADE_PLAN.md](docs/UPGRADE_PLAN.md)。
+
 ---
 
 ## 中文
